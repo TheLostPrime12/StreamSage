@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
-import { backGroundImageUrl, githubProfileImgUrl } from "../img/imageUrls";
+import { backGroundImageUrl, userIconUrl } from "../img/imageUrls";
 import { checkValidEmailPassword } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
@@ -8,12 +8,10 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [isSignIn, setIsSignIn] = useState(true);
@@ -48,7 +46,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: githubProfileImgUrl,
+            photoURL: userIconUrl,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
@@ -60,10 +58,9 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
-              setErrorMessage(error.message)
+              setErrorMessage(error.message);
             });
         })
         .catch((error) => {
@@ -82,8 +79,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
