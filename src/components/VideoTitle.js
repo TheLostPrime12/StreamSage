@@ -1,26 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const VideoTitle = ({ title, overview }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [overviewWidth, setOverviewWidth] = useState("w-1/3");
 
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
   };
+
+  useEffect(() => {
+    if (overview.length > 350) {
+      setOverviewWidth("w-2/3");
+    } else {
+      setOverviewWidth("w-1/3");
+    }
+  }, [overview]);
 
   const shouldShowToggle = overview.length > 200;
 
   return (
     <div className="w-full aspect-video pt-64 px-20 absolute text-white bg-gradient-to-r from-black">
       <h1 className="text-5xl font-bold">{title}</h1>
-      <div className="py-6 text-lg w-1/3">
+      <div className={`py-6 text-lg ${overviewWidth}`}>
         {isExpanded || !shouldShowToggle
           ? overview
           : `${overview.substring(0, 200)}...`}
         {shouldShowToggle && (
-          <span
-            onClick={handleToggle}
-            className="cursor-pointer ml-2"
-          >
+          <span onClick={handleToggle} className="cursor-pointer ml-2">
             {isExpanded ? "[-]" : "[+]"}
           </span>
         )}
@@ -38,7 +44,6 @@ const VideoTitle = ({ title, overview }) => {
 };
 
 export default VideoTitle;
-
 
 // import React from "react";
 
@@ -60,6 +65,3 @@ export default VideoTitle;
 // };
 
 // export default VideoTitle;
-
-
-

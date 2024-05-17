@@ -6,3 +6,7 @@ export const githubProfileImgUrl =
 
 export const userIconUrl =
   "https://i.pinimg.com/736x/92/b4/e7/92b4e7c57de1b5e1e8c5e883fd915450.jpg";
+
+export const moviePosterUrl =
+  "https://image.tmdb.org/t/p/w500/";
+
