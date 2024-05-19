@@ -1,5 +1,5 @@
 import React from "react";
-import MovieList from "./MovieList";
+import ListTemplate from "./ListTemplate";
 import { useSelector } from "react-redux";
 
 const SecondaryContainer = () => {
@@ -11,19 +11,19 @@ const SecondaryContainer = () => {
     movies && (
       <div className="bg-black">
         <div className="-mt-56 relative z-20 px-6">
-          <MovieList
+          <ListTemplate
             title={"Now Playing Movies"}
             movies={movies.nowPlayingMovies}
           />
-          <MovieList
+          <ListTemplate
             title={"Top Rated Movies"}
             movies={movies.topRatedMovies}
           />
-          <MovieList title={"Popular Movies"} movies={movies.popularMovies} />
-          <MovieList title={"Upcoming Movies"} movies={movies.upcomingMovies} />
+          <ListTemplate title={"Popular Movies"} movies={movies.popularMovies} />
+          <ListTemplate title={"Upcoming Movies"} movies={movies.upcomingMovies} />
           {genreMovieList &&
             genreMovieList.map((genre) => (
-              <MovieList
+              <ListTemplate
                 key={genre.id}
                 title={genre.name + " Movies"}
                 movies={moviesByGenre[genre.id]}

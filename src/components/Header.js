@@ -4,6 +4,7 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
+import { toggleShowTvShows } from "../utils/tvShowsSlice";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -16,6 +17,10 @@ const Header = () => {
       .catch((error) => {
         navigate("/error");
       });
+  };
+
+  const handleTvShowsClick = () => {
+    dispatch(toggleShowTvShows());
   };
 
   useEffect(() => {
@@ -46,14 +51,29 @@ const Header = () => {
       <img className="w-44" src={require("../img/streamsage.png")} alt="logo" />
       {user && (
         <div className="flex">
-          <img
-            src={user?.photoURL}
-            alt="userIcon"
-            className="w-8 h-8 rounded-md"
-          />
-          <button onClick={handleSignOut} className="font-bold text-white">
-            (Sign Out)
-          </button>
+          <label className="inline-flex items-center px-2 rounded-md cursor-pointer text-white font-semibold mx-5">
+            <input
+              type="checkbox"
+              className="hidden peer"
+              onClick={handleTvShowsClick}
+            />
+            <span className="px-4 py-[5px] rounded-l-md bg-red-600 peer-checked:bg-red-400 ">
+              Movies
+            </span>
+            <span className="px-4 py-[5px] rounded-r-md bg-red-400 peer-checked:bg-red-700 ">
+              TV Shows
+            </span>
+          </label>
+          <div className="flex items-center">
+            <img
+              src={user?.photoURL}
+              alt="userIcon"
+              className="w-8 h-8 rounded-md"
+            />
+            <button onClick={handleSignOut} className="font-bold text-white">
+              (Sign Out)
+            </button>
+          </div>
         </div>
       )}
     </div>

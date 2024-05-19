@@ -1,10 +1,11 @@
+import React from "react";
+import useTvTrailerVideo from "../hooks/useTvTrailerVideo";
 import { useSelector } from "react-redux";
-import useMovieTrailer from "../hooks/useMovieTrailer";
 
-const VideoBackground = ({ movieId }) => {
-  const trailerVideo = useSelector((store) => store.movies?.trailerVideo);
+const TvVideoBackground = ({ tvId }) => {
+  const tvTrailerVideo = useSelector((store) => store.tvShows?.tvTrailerVideo);
 
-  useMovieTrailer(movieId);
+  useTvTrailerVideo(tvId);
 
   return (
     <div>
@@ -12,7 +13,7 @@ const VideoBackground = ({ movieId }) => {
         className="w-full aspect-video"
         src={
           "https://www.youtube.com/embed/" +
-          trailerVideo?.key +
+          tvTrailerVideo?.key +
           "?autoplay=1&mute=1&controls=0&rel=0"
         }
         title="YouTube video player"
@@ -23,4 +24,4 @@ const VideoBackground = ({ movieId }) => {
   );
 };
 
-export default VideoBackground;
+export default TvVideoBackground;
